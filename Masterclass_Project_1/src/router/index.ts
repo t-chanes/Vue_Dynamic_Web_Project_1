@@ -23,7 +23,7 @@ routes: [
     {
       path: '/projects/:id',
       name: 'single-project',
-      component: () => import('@/pages/[id].vue'),
+      component: () => import('@/pages/[slug].vue'),
     },
     {
       path: '/:catchAll(.*)*',
