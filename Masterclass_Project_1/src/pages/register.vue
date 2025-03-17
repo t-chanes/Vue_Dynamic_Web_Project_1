@@ -14,7 +14,7 @@ const router = useRouter()
 const signup = async () => {
   const isRegistered = await register(formData.value)
 
-  if (isRegistered) await router.push('/')
+  if (isRegistered) router.push('/')
 }
 </script>
 

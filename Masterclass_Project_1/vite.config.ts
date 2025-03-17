@@ -11,15 +11,10 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-  css: {
-    postcss: {
-      plugins: [tailwind(), autoprefixer()],
-    },
-  },
   plugins: [
     VueRouter(),
     Components({
-      dts:true,
+      /* options */
     }),
     AutoImport({
       include: [
@@ -28,9 +23,14 @@ export default defineConfig({
         /\.vue\?vue/, // .vue
         /\.md$/ // .md
       ],
-      imports: ['vue', VueRouterAutoImports,
+      imports: [
+        'vue',
+        VueRouterAutoImports,
         {
-          'pinia': ['defineStore', 'storeToRefs', 'acceptHMRUpdate']
+          pinia: ['defineStore', 'storeToRefs', 'acceptHMRUpdate']
+        },
+        {
+          'vue-meta': ['useMeta']
         }
       ],
       dts: true,
@@ -43,12 +43,16 @@ export default defineConfig({
           isCustomElement: (element) => element.startsWith('iconify-icon')
         }
       }
-    }),
-    vueDevTools(),
+    })
   ],
+  css: {
+    postcss: {
+      plugins: [tailwind(), autoprefixer()]
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
-    },
-  },
+    }
+  }
 })
